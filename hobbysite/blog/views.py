@@ -5,8 +5,8 @@ from .forms import ArticleForm, ArticleCategoryForm, ArticleUpdateForm, ArticleC
 from django.contrib.auth.decorators import login_required
 
 def article_list(request):
-    # user_profile = request.user.profile
-    user_profile = request.user
+    user_profile = request.user.profile
+    # user_profile = request.user
     articles_by_user = Article.objects.filter(author=user_profile)
     categories = ArticleCategory.objects.prefetch_related(
         Prefetch('art_cat', queryset=Article.objects.exclude(author=user_profile))
@@ -27,8 +27,8 @@ def article_detail(request, num=1):
 
             comment.article = article
             if request.user.is_authenticated:
-                # comment.author = request.user.profile  # Set the author to the user's profile
-                comment.author = request.user.user
+                comment.author = request.user.profile  # Set the author to the user's profile
+                # comment.author = request.user.user
             comment.save()
             return redirect('article_detail', num=article.pk)
 
