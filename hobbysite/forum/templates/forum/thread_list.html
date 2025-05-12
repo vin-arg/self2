@@ -1,0 +1,41 @@
+{% extends "forum/base.html" %}
+
+{% block content %}
+    <h2>Forum Threads</h2>
+
+    {% if user_threads %}
+        <h3>Your Threads</h3>
+        <ul>
+            {% for thread in user_threads %}
+                <li>
+                    <a href="{% url 'forum:thread_detail' thread.pk %}">{{ thread.title }}</a><br>
+                    <small>Created on: {{ thread.created_on|date:"Y-m-d H:i" }}</small> | 
+                    <small>Last updated: {{ thread.updated_on|date:"Y-m-d H:i" }}</small>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% if selected_category %}
+        <h3>Threads under "{{ selected_category.name }}"</h3>
+        <a href="{% url 'forum:thread_list' %}">Show all threads</a>
+    {% else %}
+        <h3>All Threads by Category</h3>
+        {% for category, threads in grouped_threads.items %}
+            <h4>{{ category.name }}</h4>
+            <ul>
+                {% for thread in threads %}
+                    <li>
+                        <a href="{% url 'forum:thread_detail' thread.pk %}">{{ thread.title }}</a><br>
+                        <small>Created on: {{ thread.created_on|date:"Y-m-d H:i" }}</small> | 
+                        <small>Last updated: {{ thread.updated_on|date:"Y-m-d H:i" }}</small>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endfor %}
+    {% endif %}
+
+    {% if user.is_authenticated %}
+        <p><a href="{% url 'forum:thread_create' %}">+ Create New Thread</a></p>
+    {% endif %}
+{% endblock %}

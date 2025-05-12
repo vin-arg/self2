@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/merchstore.css' %}">
+</head>
+<body>
+    <h1 id="site-name">HobbySite</h1>
+    <div class="navbar">
+        <a href="{% url 'item_list' %}" class="active">Merchandise</a>
+        <a href="{% url 'wiki:articles' %}">Wiki</a>
+        <a href="{% url 'article_list' %}">Blog</a>
+        <a href="{% url 'forum:thread_list' %}">Forum</a>
+        <a href="{% url 'commissions:commissions_list' %}">Commission</a>
+    </div>
+    <div class="logout">
+        <form method="POST" action="{% url 'logout' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Logout</button>
+        </form>
+    </div>
+    {% block content %}
+        
+    {% endblock %}
+
+    <footer>
+        &copy; 2025 Hobbysite. All rights reserved.
+    </footer>
+</body>
+</html>

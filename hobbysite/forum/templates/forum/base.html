@@ -1,0 +1,28 @@
+{% load static %} 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forum</title> 
+    <link rel="stylesheet" type="text/css" href="{% static 'forum/css/forum.css' %}">
+</head>
+<body>
+
+    <h1>Welcome to the Forum</h1>
+
+    <nav>
+        <a href="{% url 'item_list' %}">Merchandise</a>
+        <a href="{% url 'wiki:articles' %}" class="active">Wiki</a>
+        <a href="{% url 'article_list' %}">Blog</a>
+        <a href="{% url 'forum:thread_list' %}">Forum</a>
+        <a href="{% url 'commissions:commission_list' %}">Commission</a>
+    </nav>
+
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>

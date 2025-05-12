@@ -1,0 +1,170 @@
+:root {
+    --background: #AD9066;
+    --light: #D4CFCC;
+    --dark: #342923;
+    --accent1: #7A4B39;
+    --accent2: #645840;
+    --white: #f5f6fa;
+}
+
+body {
+    background-color: var(--light);
+    color: var(--dark);
+}
+
+h1, h2, h3, a {
+    color: var(--dark) !important;
+}
+
+.navbar {
+    background-color: var(--accent1) !important;
+}
+
+.navbar-item, .navbar-link {
+    color: var(--white) !important;
+    background-color: var(--accent1) !important;
+}
+
+
+.navbar-item:hover, .navbar-link:hover {
+    background-color: var(--accent2) !important;
+}
+
+.navbar-dropdown {
+    background-color: var(--accent1) !important;
+}
+
+.navbar-dropdown .navbar-item:hover {
+    background-color: var(--accent2) !important;
+}
+
+.tag {
+    color: var(--white) !important;
+    background-color: var(--accent1) !important;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 1rem;
+}
+
+.button {
+    color: var(--white) !important;
+    background-color: var(--accent1) !important;
+    border-color: var(--accent1) !important;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.button:hover {
+    transition: transform 0.2s ease;
+    transform: scale(1.05);
+}
+
+.message-header {
+    background-color: var(--accent1);
+    color: var(--white);
+}
+
+.message-body {
+    color: var(--dark);
+    background-color: var(--white);
+}
+
+.message-body p {
+    color: var(--dark) !important;
+}
+
+.box {
+    background-color: var(--light);
+    border-left: 5px solid var(--accent1);
+}
+
+.box .title, .box .subtitle {
+    color: var(--accent1) !important;
+}
+
+.message-body .title, .message-body .subtitle {
+    color: var(--accent1) !important;
+}
+
+.message-body ul li a {
+    color: var(--dark) !important;
+    text-decoration: none !important;
+    transition: color 0.3s ease, text-decoration 0.3s ease !important;
+}
+
+.message-body ul li a:hover {
+    color: var(--accent2) !important;
+    text-decoration: underline !important;  
+}
+
+.box form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.box label {
+    font-weight: bold;
+    color: var(--accent1);
+    margin-bottom: 0.25rem;
+}
+
+.box input[type="text"],
+.box input[type="number"],
+.box input[type="file"],
+.box input[type="email"],
+.box textarea,
+.box select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--dark);
+    border-radius: 0.5rem;
+    background-color: var(--white);
+    color: var(--dark);
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.box input:focus, .box textarea:focus, .box select:focus {
+    outline: none;
+    border-color: var(--accent2);
+    box-shadow: 0 0 0 3px rgba(100, 88, 64, 0.2);
+}
+
+.box .help, .box .errorlist {
+    font-size: 0.875rem;
+    color: var(--accent2);
+    margin-top: -0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.box .errorlist li {
+    color: red;
+}
+
+.cart-items-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.cart-items-list li {
+    background-color: var(--light);
+    border-left: 5px solid var(--accent1);
+    padding: 1rem;
+    border-radius: 0.5rem;
+}
+
+.transaction-items-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.transaction-items-list li {
+    background-color: var(--light);
+    border-left: 5px solid var(--accent1);
+    padding: 1rem;
+    border-radius: 0.5rem;
+}
+
+.footer {
+    color: var(--white) !important;
+    background-color: var(--accent1) !important;
+}

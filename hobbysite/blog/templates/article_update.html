@@ -1,0 +1,30 @@
+{% extends 'bbase.html' %}
+
+{% load static %}
+{% block mycss %} <link rel="stylesheet" href="/static/blog.css"> {% endblock %}
+
+{% block title %}Blog{% endblock %}
+
+{% block list %}
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-half has-text-centered">
+
+        <h1 class="title">Article Edit</h1>
+
+        <form method="post" enctype="multipart/form-data" class="box">
+          {% csrf_token %}
+          {{ update_form.as_p }}
+          <button type="submit" class="button is-primary mt-3">Make edit</button>
+        </form>
+
+        <a href="{% url 'article_detail' article.pk %}" class="button is-link mt-2">Back to Article</a>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,74 @@
+{% extends "bbase.html" %}
+
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/commissions.css' %}">
+{% endblock %}
+
+{% block title %}{{ commission.title }}{% endblock %}
+
+{% block list %}
+<section class="section">
+  <div class="container">
+    <div class="box">
+      <h1 class="title is-3">{{ commission.title }}</h1>
+
+      <div class="level mb-4">
+        <div class="level-left">
+          <span class="tag is-info is-light mr-2">{{ commission.get_status_display }}</span>
+          <span class="has-text-grey">Created: {{ commission.created_on|date:"M d, Y" }}</span>
+        </div>
+        {% if can_edit %}
+        <div class="level-right">
+          <a href="{% url 'commissions:commission_edit' pk=commission.pk %}" class="button is-small is-light">Edit</a>
+        </div>
+        {% endif %}
+      </div>
+
+      <div class="content">
+        <p>{{ commission.description }}</p>
+      </div>
+
+      <div class="box has-background-light">
+        <h3 class="title is-5">Manpower Summary</h3>
+        <div class="columns">
+          <div class="column is-half">
+            <p><strong>Total Required:</strong> {{ total_manpower }}</p>
+          </div>
+          <div class="column is-half">
+            <p><strong>Open Positions:</strong> {{ open_manpower }}</p>
+          </div>
+        </div>
+      </div>
+
+      <h2 class="title is-4 mt-5">Available Jobs</h2>
+      {% for job in jobs %}
+      <div class="box">
+        <h3 class="title is-5">{{ job.object.role }}</h3>
+        <div class="columns is-multiline">
+          <div class="column is-6">
+            <p><strong>Required:</strong> {{ job.object.manpower_required }}</p>
+          </div>
+          <div class="column is-6">
+            <p><strong>Open Positions:</strong> {{ job.remaining_positions }}</p>
+          </div>
+        </div>
+
+        {% if job.can_apply %}
+        <form method="post" action="{% url 'commissions:commission_detail' pk=commission.pk %}">
+          {% csrf_token %}
+          <div class="field">
+            {{ job.form }}
+          </div>
+          <input type="hidden" name="job_id" value="{{ job.object.id }}">
+          <button type="submit" class="button is-link is-small mt-2">Apply to this Job</button>
+        </form>
+        {% elif job.remaining_positions <= 0 %}
+        <p class="has-text-danger mt-2">All positions filled</p>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

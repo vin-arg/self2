@@ -1,0 +1,18 @@
+{% extends "forum/base.html" %}
+
+{% block content %}
+    <h2>{{ thread.title }}</h2>
+    <p><strong>Category:</strong> {{ thread.category.name }}</p>
+    <p><strong>Created on:</strong> {{ thread.created_on|date:"Y-m-d H:i" }}</p>
+    <p><strong>Last updated:</strong> {{ thread.updated_on|date:"Y-m-d H:i" }}</p>
+    <hr>
+    <p>{{ thread.entry }}</p>
+    <br>
+
+    {% if is_owner %}
+        <a href="{% url 'forum:thread_update' pk=thread.pk %}">Edit Thread</a>
+    {% endif %}
+
+    <br><br>
+    <a href="{% url 'forum:thread_list' %}">Back to Threads</a>
+{% endblock %}

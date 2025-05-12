@@ -1,0 +1,31 @@
+{% extends 'bbase.html' %}
+
+{% load static %}
+
+{% block title %}Edit Profile{% endblock %}
+
+{% block list %}
+<div class="section">
+    <div class="container">
+
+        <div class="message">
+            <div class="message-header">
+                <p>Edit Profile: {{ product.name }}</p>
+            </div>
+            <div class="message-body">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="box">
+                        {{ profile_form.as_p }}
+                    </div>
+                    <div class="buttons mt-4">
+                        <button type="submit" class="button is-success">Save Changes</button>
+                        <a href="{% url 'home_page' %}" class="button is-light">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

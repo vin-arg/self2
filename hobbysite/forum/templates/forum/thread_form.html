@@ -1,0 +1,29 @@
+{% extends "forum/base.html" %}
+
+{% block content %}
+    <h2>{% if is_update %}Update Thread{% else %}Create New Thread{% endif %}</h2>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        {% if form.errors %}
+            <div style="color: red; margin-top: 1em;">
+                <ul>
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li><strong>{{ field.label }}:</strong> {{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        <button type="submit">{% if is_update %}Update{% else %}Create{% endif %} Thread</button>
+    </form>
+
+    <p><a href="{% url 'forum:thread_list' %}">← Back to Threads</a></p>
+{% endblock %}

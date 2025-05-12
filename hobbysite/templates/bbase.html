@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    
+    <title>{% block title %}{% endblock %}</title>
+
+    {% load static %}
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <link rel="stylesheet" href="{% static 'css/central.css' %}">
+
+</head>
+<body>
+    <nav class="navbar has-shadow is-white">
+
+        <div class="navbar-brand">
+            <a href="{% url 'home_page' %}" class="navbar-item">
+                <p class="title">HobbySite</p>
+            </a>
+        </div>
+
+        <div class="navbar-menu" id="nav-links">
+            <div class="navbar-start">
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link" href="{% url 'item_list' %}">Merchandise</a>
+                    <div class="navbar-dropdown">
+                        <a class="navbar-item" href="{% url 'item_cart' %}">Cart</a>
+                        <a class="navbar-item" href="{% url 'item_transactions' %}">Transactions</a>
+                        <a class="navbar-item" href="{% url 'item_add' %}">Sell a Product</a>
+                    </div>
+                </div>
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link" href="{% url 'wiki:articles' %}">Wiki</a>
+                    <div class="navbar-dropdown">
+                        <a class="navbar-item" href="{% url 'wiki:articles' %}">Article List</a>
+                        <a class="navbar-item" href="{% url 'wiki:article_create' %}">Write an Article</a>
+                    </div>
+                </div>
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link" href="{% url 'article_list' %}">Blog</a>
+                    <div class="navbar-dropdown">
+                        <a class="navbar-item" href="{% url 'article_list' %}">Article List</a>
+                        <a class="navbar-item" href="{% url 'article_create' %}">Write an Article</a>
+                    </div>
+                </div>
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link" href="{% url 'forum:thread_list' %}">Forum</a>
+                    <div class="navbar-dropdown">
+                        <a class="navbar-item" href="{% url 'forum:thread_list' %}">Full Thread List</a>
+                        <a class="navbar-item" href="{% url 'forum:thread_create' %}">Start a Thread</a>
+                    </div>
+                </div>
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link" href="{% url 'commissions:commission_list' %}">Commission</a>
+                    <div class="navbar-dropdown">
+                        <a class="navbar-item" href="{% url 'commissions:commission_list' %}">Commissions List</a>
+                        <a class="navbar-item" href="{% url 'commissions:commission_add' %}">Add a Commission</a>
+                    </div>
+                </div>
+            </div>
+            <div class="navbar-end">
+                <a class="navbar-item mx-3 px-3" href="{% url 'profile' %}">
+                    Profile
+                </a>
+                <a class="navbar-item logout mx-3 px-3">
+                        <form method="POST" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <button type="submit">Logout</button>
+                        </form>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div>
+        {% block category %}{% endblock %}
+    </div>
+
+
+    <div >
+        {% block list %}{% endblock %}
+    </div>
+
+    <br>
+    <br>
+    <br>
+
+    <footer class="footer py-2">
+        <div class="content has-text-centered">
+            &copy; 2025 Almojuela, Arguelles, Sapitula, Tan, Tormon. All Rights Reserved.
+        </div>
+    </footer>
+
+</body>
+</html>
+
+

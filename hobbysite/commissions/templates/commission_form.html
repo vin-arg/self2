@@ -1,0 +1,134 @@
+{% extends 'bbase.html' %}
+
+{% load static %}
+{% block mycss %}
+<link rel="stylesheet" href="{% static 'css/commissions.css' %}">
+{% endblock %}
+
+{% block title %}
+    {% if editing %}Update{% else %}Create{% endif %} Commission
+{% endblock %}
+
+{% block list %}
+<div class="section">
+    <div class="container">
+        <div class="box">
+            <h1 class="title is-3">
+                {% if editing %}Update{% else %}Create{% endif %} Commission
+            </h1>
+
+            <form method="post">
+                {% csrf_token %}
+
+                <div class="field">
+                    {{ commission_form.title.label_tag }}
+                    <div class="control">
+                        {{ commission_form.title }}
+                    </div>
+                    {% if commission_form.title.errors %}
+                        <p class="help is-danger">{{ commission_form.title.errors }}</p>
+                    {% endif %}
+                </div>
+
+                <div class="field">
+                    {{ commission_form.description.label_tag }}
+                    <div class="control">
+                        {{ commission_form.description }}
+                    </div>
+                    {% if commission_form.description.errors %}
+                        <p class="help is-danger">{{ commission_form.description.errors }}</p>
+                    {% endif %}
+                </div>
+
+                <div class="field">
+                    {{ commission_form.status.label_tag }}
+                    <div class="control">
+                        {{ commission_form.status }}
+                    </div>
+                    {% if commission_form.status.errors %}
+                        <p class="help is-danger">{{ commission_form.status.errors }}</p>
+                    {% endif %}
+                </div>
+
+                {% if editing %}
+                    <div class="field">
+                        <label class="label">Created On:</label>
+                        <div class="control">
+                            <input type="text" value="{{ commission.created_on }}" readonly class="input">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Author:</label>
+                        <div class="control">
+                            <input type="text" value="{{ commission.author }}" readonly class="input">
+                        </div>
+                    </div>
+                {% endif %}
+
+                <hr>
+
+                <h2 class="title is-4">Jobs</h2>
+                {{ job_formset.management_form }}
+                {% for job_form in job_formset %}
+                    <div class="box mb-4">
+                        {{ job_form.id }}
+                        <div class="columns is-multiline">
+                            <div class="column is-4">
+                                <div class="field">
+                                    {{ job_form.role.label_tag }}
+                                    <div class="control">
+                                        {{ job_form.role }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="column is-3">
+                                <div class="field">
+                                    {{ job_form.manpower_required.label_tag }}
+                                    <div class="control">
+                                        {{ job_form.manpower_required }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="column is-3">
+                                <div class="field">
+                                    {{ job_form.status.label_tag }}
+                                    <div class="control">
+                                        {{ job_form.status }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="column is-2">
+                                {% if job_form.instance.pk %}
+                                    <div class="field">
+                                        {{ job_form.DELETE.label_tag }}
+                                        <div class="control">
+                                            {{ job_form.DELETE }}
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% if job_form.non_field_errors %}
+                            <p class="help is-danger">{{ job_form.non_field_errors }}</p>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+
+                <div class="field is-grouped mt-5">
+                    <div class="control">
+                        <button type="submit" class="button is-primary">
+                            {% if editing %}Update{% else %}Create{% endif %} Commission
+                        </button>
+                    </div>
+                    <div class="control">
+                        <a href="{% if editing %}{% url 'commissions:commission_detail' pk=commission.pk %}{% else %}{% url 'commissions:commission_list' %}{% endif %}" class="button is-light">
+                            Cancel
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

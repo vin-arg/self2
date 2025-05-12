@@ -1,0 +1,82 @@
+{% extends 'bbase.html' %}
+
+{% load static %}
+{% block mycss %} 
+<link rel="stylesheet" href="{% static 'blog.css' %}"> 
+{% endblock %}
+
+{% block title %}Blog{% endblock %}
+
+{% block category %}
+<div class="section">
+    <div class="container">
+        <h2 class="has-text-centered">Your Articles</h2>
+        <div class="columns is-multiline is-centered">
+            {% for article in articles_by_user %}
+                <div class="column is-one-quarter">
+                    <div class="box has-text-centered">
+                        <a href="{% url 'article_detail' article.pk %}">{{ article.title }}</a><br>
+                        <small>{{ article.created_on }}</small>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="column is-12 has-text-centered">
+                    You haven't written any articles yet.
+                </div>
+            {% endfor %}
+        </div>
+
+        <h2 class="has-text-centered mt-6">Blog Categories</h2>
+        {% for category in categories %}
+            <div class="box">
+                <h3 class="title is-5">{{ category.name }}</h3>
+                <p>{{ category.description }}</p>
+
+                <div class="columns is-multiline is-centered mt-3">
+                    {% for article in category.art_cat.all %}
+                        <div class="column is-one-quarter">
+                            <div class="box has-text-centered">
+                                <a href="{% url 'article_detail' article.pk %}">{{ article.title }}</a><br>
+                                <small>{{ article.created_on }}</small><br>
+                                <a href="{% url 'article_detail' article.pk %}" class="button is-small mt-2">Go to Page</a>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <div class="column is-12 has-text-centered">
+                            No articles in this category.
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% empty %}
+            <div class="has-text-centered">No categories available</div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block list %}
+<div class="section">
+    <div class="container">
+        <h2 class="has-text-centered">Blog List</h2>
+        <div class="columns is-multiline is-centered">
+            {% for article in articles %}
+                <div class="column is-one-quarter">
+                    <div class="box has-text-centered">
+                        <a href="{% url 'article_detail' article.pk %}">{{ article.title }}</a><br>
+                        <small>{{ article.created_on }}</small>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="column is-12 has-text-centered">
+                    No articles available
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="has-text-centered mt-4">
+            <a class="button is-small is-primary" href="{% url 'article_create' %}">Add Article</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

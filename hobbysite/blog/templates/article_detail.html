@@ -1,0 +1,82 @@
+{% extends 'bbase.html' %}
+
+{% load static %}
+{% block mycss %} <link rel="stylesheet" href="/static/blog.css"> {% endblock %}
+
+{% block title %}Blog{% endblock %}
+
+{% block list %}
+
+    <div class="container body-content has-text-centered">
+        <div class="is-centered">
+            <h1>{{ article.title }}</h1>
+        </div>
+
+        <p><strong>Category:</strong> {{ article.category }}</p>
+        
+        <div class="entry">
+        <p>{{ article.entry }}</p>
+        </div>
+
+        <ul>
+            {% if article.image %}
+                <img src="{{ article.image.url }}" alt="{{ article.title }}" style="max-width: 100%; height: auto;">
+            {% endif %}
+        </ul>
+
+        <div>
+            {% if request.user.is_authenticated and request.user == article.author.user %}
+                <a href="{% url 'article_update' article.id %}" class="button">Edit Article</a>
+            {% endif %}
+        </div>
+
+
+        <div class="down">
+            <p><em>Created on: {{ article.created_on }}</em></p>
+            <p><em>Updated on: {{ article.updated_on }}</em></p>
+
+        <a href="/blog/articles/" class="button">Back to Blog</a>
+        </div>
+
+        <br>
+
+        <h3>More Articles by {{ article.author }}</h3>
+            <div class="article_list">
+                {% for a in related_articles %}
+                    <div class="artlist_cont">
+                        <a href="{% url 'article_detail' a.pk %}">{{ a.title }}</a>
+                        <p><small>Created on: {{ a.created_on }}</small></p>
+                    </div>
+                {% empty %}
+                    <p>This author hasn't written any other articles yet.</p>
+                {% endfor %}
+            </div>
+
+
+        <br>
+        <br>
+
+        <h3>Comments</h3>
+        {% for comment in comments %}
+            <div class="comment">
+                <p>{{ comment.entry }}</p>
+                <p><small><em>By {{ comment.author }} on {{ comment.created_on }}</em></small></p>
+            </div>
+        {% empty %}
+            <p>No comments yet.</p>
+        {% endfor %}
+
+
+        <br>
+        <br>
+
+
+        <h3>Leave a Comment</h3>
+        <form method="post">
+            {% csrf_token %}
+            {{ comment_form.as_p }}
+            <button type="submit" class="button">Post Comment</button>
+        </form>
+    </div>
+
+{% endblock %}

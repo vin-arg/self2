@@ -1,0 +1,38 @@
+{% extends 'bbase.html' %}
+
+{% load static %}
+{% block mycss %} <link rel="stylesheet" href="/static/blog.css"> {% endblock %}
+
+{% block title %}Blog{% endblock %}
+
+{% block list %}
+    
+<h1>Article Create</h1>
+
+<b> Add Category</b>
+
+<form method = "post">
+    {% csrf_token %}
+    {{ category_form.as_p }}
+    <button type ="submit">Add</button>
+</form>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+<b> Add Article</b>
+
+<form method = "post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ article_form.as_p }}
+    <button type ="submit">Add</button>
+</form>
+
+
+<a href="/blog/articles/" class="button">Back to Blog</a>
+
+{% endblock %}

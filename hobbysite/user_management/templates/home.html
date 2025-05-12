@@ -1,0 +1,126 @@
+{% extends 'bbase.html' %}
+
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block list %}
+<div class="section">
+    <div class="container">
+        <h1 class="title is-size-3">Welcome to Your Dashboard, {{ user.username }}!</h1>
+
+        <div class="dashboard-section box">
+            <h2 class="title is-4">Products Bought</h2>
+            {% if bought_products %}
+                <ul class="list">
+                    {% for product in bought_products %}
+                        <li>
+                            <a href="{% url 'item_entry' product.id %}">{{ product.name }}</a> - 
+                            <span class="subtitle is-6">Price: ₱{{ product.price }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No products bought.</p>
+            {% endif %}
+        </div>
+
+        <div class="dashboard-section box">
+            <h2 class="title is-4">Products Sold</h2>
+            {% if sold_products %}
+                <ul class="list">
+                    {% for product in sold_products %}
+                        <li>
+                            <a href="{% url 'item_entry' product.id %}">{{ product.name }}</a> - 
+                            <span class="subtitle is-6">Price: ₱{{ product.price }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No products sold.</p>
+            {% endif %}
+        </div>
+
+        <div class="dashboard-section box">
+            <h2 class="title is-4">Wiki Articles Created</h2>
+            {% if wiki_articles %}
+                <ul class="list">
+                    {% for article in wiki_articles %}
+                        <li>
+                            <a href="{% url 'wiki:article_detail' article.id %}">{{ article.title }}</a> - 
+                            <span class="subtitle is-6">{{ article.created_at }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No wiki articles created.</p>
+            {% endif %}
+        </div>
+
+        <div class="dashboard-section box">
+            <h2 class="title is-4">Blog Articles Created</h2>
+            {% if blog_articles %}
+                <ul class="list">
+                    {% for article in blog_articles %}
+                        <li>
+                            <a href="{% url 'article_detail' article.id %}">{{ article.title }}</a> - 
+                            <span class="subtitle is-6">{{ article.created_at }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No blog articles created.</p>
+            {% endif %}
+        </div>
+
+        <div class="dashboard-section box">
+            <h2 class="title is-4">Threads Created</h2>
+            {% if threads %}
+                <ul class="list">
+                    {% for thread in threads %}
+                        <li>
+                            <a href="{% url 'forum:thread_detail' thread.id %}">{{ thread.title }}</a> - 
+                            <span class="subtitle is-6">{{ thread.created_at }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No threads created.</p>
+            {% endif %}
+        </div>
+
+        <div class="dashboard-section box">
+            <h2 class="title is-4">Commissions Created</h2>
+            {% if created_commissions %}
+                <ul class="list">
+                    {% for commission in created_commissions %}
+                        <li>
+                            <a href="{% url 'commissions:commission_detail' commission.id %}">{{ commission.title }}</a> - 
+                            <span class="subtitle is-6">{{ commission.created_at }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No commissions created.</p>
+            {% endif %}
+        </div>
+
+        <div class="dashboard-section box">
+            <h2 class="title is-4">Commissions Joined</h2>
+            {% if joined_commissions %}
+                <ul class="list">
+                    {% for commission in joined_commissions %}
+                        <li>
+                            <a href="{% url 'commissions:commission_detail' commission.id %}">{{ commission.title }}</a> - 
+                            <span class="subtitle is-6">{{ commission.created_at }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No commissions joined.</p>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+{% endblock %}

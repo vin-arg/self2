@@ -1,0 +1,22 @@
+{% extends "bbase.html" %}
+{% load static %}
+
+{% block mycss %}
+<link rel="stylesheet" href="{% static 'wiki/styles.css' %}">
+{% endblock %}
+
+{% block title %}{{ is_create|yesno:"Create Article,Edit Article" }}{% endblock %}
+
+{% block list %}
+<div class="container mt-5">
+    <h1 class="title">{{ is_create|yesno:"Create a New Article,Edit Article" }}</h1>
+
+    <form method="post" enctype="multipart/form-data" class="box">
+        {% csrf_token %}
+        {{ article_form.as_p }}
+        <button type="submit" class="button is-success">{{ is_create|yesno:"Create,Update" }}</button>
+    </form>
+
+    <a href="{% url 'wiki:articles' %}" class="button is-light">← Back to Article List</a>
+</div>
+{% endblock %}

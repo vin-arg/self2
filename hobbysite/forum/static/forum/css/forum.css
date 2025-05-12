@@ -1,0 +1,90 @@
+body {
+    font-family: 'Merriweather', serif;
+    background-color: #eae0d5;
+    margin: 0;
+    padding: 0;
+    color: #5c4033;
+}
+
+h1 {
+    font-size: 36px;
+    font-weight: bold;
+    text-align: center;
+    background: #6d4c41;
+    color: #d7ccc8;
+    padding: 20px;
+    margin: 0;
+    border-bottom: 5px solid #5d4037;
+    font-family: 'Playfair Display', serif;
+}
+
+h2, h3 {
+    color: #3e2723;
+    font-family: 'Merriweather', serif;
+}
+
+/* layout */
+.content {
+    max-width: 800px;
+    margin: 20px auto;
+    background: #fff8f0;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+/* links */
+a {
+    color: #795548;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #4e342e;
+}
+
+/* navigation */
+nav {
+    background: #6d4c41;
+    padding: 10px 0;
+    text-align: center;
+}
+
+nav a {
+    color: #d7ccc8;
+    margin: 0 15px;
+    font-size: 16px;
+}
+
+/* thread list */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    background: #fff8f0;
+    margin: 10px 0;
+    padding: 15px;
+    border-left: 5px solid #8d6e63;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+}
+
+/* buttons */
+button, .btn {
+    display: inline-block;
+    background: #8d6e63;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+button:hover, .btn:hover {
+    background: #5d4037;
+}

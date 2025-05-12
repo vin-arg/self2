@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <link rel="stylesheet" href="{% static 'wiki/styles.css' %}">
+    <title>{% block title %}Wiki{% endblock %}</title>
+</head>
+
+<body>
+    <header>
+        Hobbysite
+    </header>
+
+    <nav>
+        <a href="{% url 'item_list' %}">Merchandise</a>
+        <a href="{% url 'wiki:articles' %}" class="active">Wiki</a>
+        <a href="{% url 'article_list' %}">Blog</a>
+        <a href="{% url 'forum:thread_list' %}">Forum</a>
+        <a href="{% url 'commissions:commissions_list' %}">Commission</a>
+    </nav>
+
+    <div>
+        {% block category %}{% endblock %}
+    </div>
+
+    <div>
+        {% block list %}{% endblock %}
+    </div>
+
+    <footer>&copy; 2025 Hobbysite. All Rights Reserved.</footer>
+</body>
+
+</html>

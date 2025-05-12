@@ -1,0 +1,54 @@
+{% extends 'bbase.html' %}
+
+{% load static %}
+{% block mycss %}
+<link rel="stylesheet" href="{% static 'css/merchstore.css' %}">
+{% endblock %}
+
+{% block title %}Your Cart{% endblock %}
+
+{% block list %}
+<div class="section">
+    <div class="container">
+
+        <div class="message">
+            <div class="message-header">
+                <p class="is-size-4">Your Cart</p>
+            </div>
+            <div class="message-body">
+
+                {% if transactions %}
+                    {% regroup transactions by product.owner as owner_groups %}
+
+                    {% for group in owner_groups %}
+                        <div class="box mb-4">
+                            <h2 class="title is-5">Seller: {{ group.grouper }}</h2>
+                            <ul>
+                                {% for transaction in group.list %}
+                                    <li class="mb-3">
+                                        <div class="content">
+                                            <p><strong>{{ transaction.product.name }}</strong></p>
+                                            <p>{{ transaction.product.description }}</p>
+                                            <p>Price: ₱{{ transaction.product.price }}</p>
+                                            <p>Quantity: {{ transaction.amount }}</p>
+                                            <p>Status: {{ transaction.status }}</p>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>Your cart is empty.</p>
+                {% endif %}
+
+                <div class="buttons mt-4">
+                    <a href="{% url 'item_list' %}" class="button is-light">Back to Product List</a>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

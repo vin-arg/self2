@@ -1,0 +1,85 @@
+{% extends 'bbase.html' %}
+
+{% load static %}
+{% block mycss %} <link rel="stylesheet" href="{% static 'css/merchstore.css' %}"> {% endblock %}
+
+{% load static %}
+
+{% block title %}Product List{% endblock %}
+
+{% block list %}
+
+    <div class="section has-text-centered">
+        <span class="tag is-size-1 p-6">
+            Welcome to Our Merch Store!
+        </span>
+    </div>
+
+    <div class="section">
+        <div class="container">
+            <div class="sell-product message mb-6">
+                <div class="message-header">
+                    <p class="title is-size-3 is-align-content-start">Your Products</p>
+                    <div class="buttons is-align-content-end">
+                        <a href="{% url 'item_add' %}" class="button">Add Item</a>
+                        <a href="{% url 'item_transactions' %}" class="button">Your Transactions</a>
+                    </div>
+                </div>
+                <div class="message-body">
+                    {% if sell_product_types %}
+                        {% for sell_product_type in sell_product_types %}
+                        <div class="box mb-4">
+                            <h2 class="title is-5">{{ sell_product_type.name }}</h2>
+                            <p class="subtitle is-6">{{ sell_product_type.description }}</p>
+                            {% if sell_product_type.products.count %}
+                            <ul>
+                                {% for product in sell_product_type.products.all %}
+                                    {% if product.owner == user.profile %}
+                                        <li><a href="{% url 'item_entry' product.id %}">{{ product.name }}</a></li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                            {% else %}
+                            <p>No products currently being sold.</p>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <p>No products currently being sold.</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="buy-product message">
+                <div class="message-header">
+                    <p class="title is-size-3 is-align-content-start">Buy Products</p>
+                    <div class="buttons is-align-content-end">
+                        <a href="{% url 'item_cart' %}" class="button is-info">Your Cart</a>
+                    </div>
+                </div>
+                <div class="message-body">
+                    {% for buy_product_type in buy_product_types %}
+                        <div class="box mb-4">
+                            <h2 class="title is-5">{{ buy_product_type.name }}</h2>
+                            <p class="subtitle is-6">{{ buy_product_type.description }}</p>
+
+                            {% if buy_product_type.products.count %}
+                            <ul>
+                                {% for product in buy_product_type.products.all %}
+                                    <li><a href="{% url 'item_entry' product.id %}">{{ product.name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                            {% else %}
+                                <p>No products available yet.</p>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    
+{% endblock %}

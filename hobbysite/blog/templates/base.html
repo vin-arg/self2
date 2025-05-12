@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <link rel="stylesheet" href="/static/blog.css">
+    <title>{% block title %}{% endblock %}</title>
+    
+</head>
+<body>
+    <header>
+        Hobbysite
+    </header>
+
+    <nav>
+        <a href="{% url 'item_list' %}">Merchandise</a>
+        <a href="{% url 'wiki:articles' %}">Wiki</a>
+        <a href="{% url 'article_list' %}" class="active">Blog</a>
+        <a href="{% url 'forum:thread_list' %}">Forum</a>
+        <a href="{% url 'commissions:commissions_list' %}">Commission</a>
+        <a href="{% url 'home_page' %}">homepage</a>
+    </nav>
+
+    <div>
+        {% block category %}{% endblock %}
+    </div>
+
+
+    <div >
+        {% block list %}{% endblock %}
+    </div>
+
+    <br>
+    <br>
+    <br>
+
+    <footer>&copy; 2025 Hobbysite. All Rights Reserved.</footer>
+
+</body>
+</html>
+
+
