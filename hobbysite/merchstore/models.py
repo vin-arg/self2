@@ -24,19 +24,19 @@ class Product(models.Model):
     price = models.DecimalField(decimal_places=2, max_digits=100)
     stock = models.IntegerField(default=0)
 
-    status_choices = {
-        "AVA": "Available",
-        "SAL": "On Sale",
-        "OUT": "Out of Stock",
-    }
-    status = models.CharField(choices=status_choices, default="AVA", max_length=3)
+    STATUS_CHOICES = [
+        ("AVA", "Available"),
+        ("SAL", "On Sale"),
+        ("OUT", "Out of Stock"),
+    ]
+    status = models.CharField(choices=STATUS_CHOICES, default="AVA", max_length=3)
 
     class Meta:
         ordering = ['name']
 
     def __str__(self):
         return self.name
-    
+
     def get_absolute_url(self):
         return reverse('product', args=[str(self.id)])
     
@@ -46,14 +46,14 @@ class Transaction(models.Model):
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
     amount = models.PositiveIntegerField(default=0)
 
-    status_choices = {
-        "On Cart": "On Cart",
-        "To Pay": "To Pay",
-        "To Ship": "To Ship",
-        "To Receive": "To Receive",
-        "Delivered": "Delivered",
-    }
-    status = models.CharField(choices=status_choices, max_length=10, default="On Cart")
+    STATUS_CHOICES = [
+        ("On Cart", "On Cart"),
+        ("To Pay", "To Pay"),
+        ("To Ship", "To Ship"),
+        ("To Receive", "To Receive"),
+        ("Delivered", "Delivered"),
+    ]
+    status = models.CharField(choices=STATUS_CHOICES, max_length=10, default="On Cart")
 
     created_on = models.DateTimeField(auto_now_add=True)
 
