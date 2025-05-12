@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from .models import ProductType, Product, Transaction
 from .forms import TransactionForm, ProductAddForm, ProductUpdateForm
 
-@login_required
+
 def item_list(request):
     user_profile = request.user.profile
     sell_products = Product.objects.filter(owner=user_profile)
@@ -12,7 +12,7 @@ def item_list(request):
     buy_product_types = ProductType.objects.exclude(products__owner=user_profile)
     return render(request, "item_list.html", {'buy_products': buy_products, 'buy_product_types': buy_product_types, 'sell_products': sell_products, 'sell_product_types': sell_product_types})
 
-@login_required
+
 def item_entry(request, num=1):
 
     product = Product.objects.get(id=num)

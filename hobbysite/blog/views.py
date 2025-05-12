@@ -4,7 +4,6 @@ from .models import Article, ArticleCategory, ArticleComment
 from .forms import ArticleForm, ArticleCategoryForm, ArticleUpdateForm, ArticleCommentForm
 from django.contrib.auth.decorators import login_required
 
-@login_required
 def article_list(request):
     user_profile = request.user.profile
     articles_by_user = Article.objects.filter(author=user_profile)
