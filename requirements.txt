@@ -1,0 +1,7 @@
+Django>=4.2,<5.0
+gunicorn
+psycopg2-binary  # If you're using PostgreSQL
+dj-database-url  # For parsing database URLs (often used on platforms like Render or Heroku)
+python-decouple  # For managing environment variables
+whitenoise  # For serving static files in production
+Pillow
