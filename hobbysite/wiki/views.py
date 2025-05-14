@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import ArticleForm, CommentForm
 from .models import Article, ArticleCategory
 
-
+@login_required
 def article_create_view(request):
     if request.method == "POST":
         form = ArticleForm(request.POST, request.FILES)
@@ -22,7 +22,7 @@ def article_create_view(request):
         {"article_form": form, "is_create": True}
     )
 
-
+@login_required
 def article_update_view(request, pk):
     article = get_object_or_404(Article, pk=pk)
 

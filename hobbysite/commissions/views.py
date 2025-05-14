@@ -86,6 +86,7 @@ def commission_detail(request, pk):
     
     return render(request, 'commission_detail.html', ctx)
 
+@login_required
 def commission_create(request):
     form = CommissionForm()
     
@@ -112,6 +113,7 @@ def commission_create(request):
 
     return render(request, 'commission_form.html', {'commission_form': form,'job_formset': formset})
 
+@login_required
 def commission_update(request, pk):
     commission = get_object_or_404(Commission, pk=pk)
     
@@ -143,7 +145,8 @@ def commission_update(request, pk):
     }
 
     return render(request, 'commission_form.html', ctx)
-    
+
+@login_required
 def job_detail(request, job_id):
     job = get_object_or_404(Job, id=job_id)
     applications = JobApplication.objects.filter(job=job).select_related('applicant')
